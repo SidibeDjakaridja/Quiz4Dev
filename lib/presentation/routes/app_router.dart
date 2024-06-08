@@ -18,9 +18,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => GameView());
       default:
         return MaterialPageRoute(
-            builder: (_) => const Scaffold(
-                  body: Center(child: Text('Page not found')),
-                ));
+          builder: (_) => const Scaffold(
+            body: Center(child: Text('Page not found')),
+          ),
+        );
     }
   }
 }
