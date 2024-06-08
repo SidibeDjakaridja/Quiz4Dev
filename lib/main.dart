@@ -5,7 +5,7 @@ import 'package:prep_for_dev/presentation/routes/app_router.dart';
 import 'package:prep_for_dev/themes/app_theme.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "assets/env/.env");
 
   runApp(const ProviderScope(child: MyApp()));
 }
