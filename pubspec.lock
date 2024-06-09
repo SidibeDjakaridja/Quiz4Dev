@@ -146,26 +146,26 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_sound
-      sha256: "22f13af5cacf48380318851997e4c29251fd0602a26fa6f07f7685c7e1e63699"
+      sha256: faa544f073fa9e7e4633e35acf228d4aa1012b39e35eb3b1c81b9b6fb6511af1
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.18"
+    version: "9.4.12"
   flutter_sound_platform_interface:
     dependency: transitive
     description:
       name: flutter_sound_platform_interface
-      sha256: "9637cad39c8d60e25ebdfc4fd06188976f43f577be4d8c51c3e4f086d58da30a"
+      sha256: "638b0c234ec73a04511a3d186f85e3957f0e56da82326bcb8e905d7f05a06554"
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.18"
+    version: "9.4.12"
   flutter_sound_web:
     dependency: transitive
     description:
       name: flutter_sound_web
-      sha256: "1a070a7114548e1b93b668843e65142dbb8f132ed6a2a0ad2d6a64e093039d25"
+      sha256: d7db4b3febbab37c00a4a4fee7956433b3d1e1ce9778c265db607a07aabc4e09
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.18"
+    version: "9.4.12"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -188,10 +188,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_generative_ai
-      sha256: "76e35d93b8c1cd888f69a1a371f8c5dc54cec372b6c74a4c0a5d506e7cf82c1a"
+      sha256: "3de23ccdd2ae2035345f0592a1159a097e8b0a12ccc740a78a123e33cfae3c12"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.2"
   http:
     dependency: transitive
     description:
@@ -212,10 +212,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
+      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.7"
+    version: "0.7.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -308,10 +308,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "9c96da072b421e98183f9ea7464898428e764bc0ce5567f27ec8693442e72514"
+      sha256: a248d8146ee5983446bf03ed5ea8f6533129a12b11f12057ad1b4a67a2b3b41d
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.5"
+    version: "2.2.4"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -364,10 +364,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_apple
-      sha256: e6f6d73b12438ef13e648c4ae56bd106ec60d17e90a59c4545db6781229082a0
+      sha256: e9ad66020b89ff1b63908f247c2c6f931c6e62699b756ef8b3c4569350cd8662
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.5"
+    version: "9.4.4"
   permission_handler_html:
     dependency: transitive
     description:
@@ -452,10 +452,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "93d0ec9dd902d85f326068e6a899487d1f65ffcd5798721a95330b26c8131577"
+      sha256: "1ee8bf911094a1b592de7ab29add6f826a7331fb854273d55918693d5364a1f2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.2"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -617,10 +617,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: a79dbe579cb51ecd6d30b17e0cae4e0ea15e2c0e66f69ad4198f22a6789e94f4
+      sha256: "0eaf06e3446824099858367950a813472af675116bf63f008a4c2a75ae13e9cb"
       url: "https://pub.dev"
     source: hosted
-    version: "5.5.1"
+    version: "5.5.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -630,5 +630,5 @@ packages:
     source: hosted
     version: "1.0.4"
 sdks:
-  dart: ">=3.4.0 <4.0.0"
-  flutter: ">=3.22.0"
+  dart: ">=3.3.1 <4.0.0"
+  flutter: ">=3.19.0"
