@@ -51,9 +51,10 @@ class GameView extends ConsumerWidget {
                     "QUESTION ${gameViewModel.index + 1}/${homeViewModel.questions.length}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: AppTheme.primaryColor.withOpacity(0.4),
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
+                      color: AppTheme.primaryColor.withOpacity(0.4),
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(
                     height: 15,
@@ -68,14 +69,16 @@ class GameView extends ConsumerWidget {
                   ),
                   AppHelpers.getSpacerHeight(3),
                   Visibility(
-                      visible: homeViewModel
-                          .questions[gameViewModel.index].answers.isNotEmpty,
-                      child: mcqSection(homeViewModel, gameViewModel)),
+                    visible: homeViewModel
+                        .questions[gameViewModel.index].answers.isNotEmpty,
+                    child: mcqSection(homeViewModel, gameViewModel),
+                  ),
                   Visibility(
-                      visible: homeViewModel
-                          .questions[gameViewModel.index].answers.isEmpty,
-                      child: questionSection(
-                          size, homeViewModel, gameViewModel, context)),
+                    visible: homeViewModel
+                        .questions[gameViewModel.index].answers.isEmpty,
+                    child: questionSection(
+                        size, homeViewModel, gameViewModel, context),
+                  ),
                 ],
               ),
             ),
@@ -177,148 +180,150 @@ class GameView extends ConsumerWidget {
   }
 
   Widget questionSection(size, homeViewModel, gameViewModel, context) {
-    return Column(children: [
-      TextFormField(
-        maxLines: 4,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 15,
-        ),
-        decoration: InputDecoration(
-          hintText: "Write your answer here",
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 1, color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
+    return Column(
+      children: [
+        TextFormField(
+          maxLines: 4,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 15,
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(width: 1, color: AppTheme.primaryColor),
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          decoration: InputDecoration(
+            hintText: "Write your answer here",
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(width: 1, color: Colors.black),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(width: 1, color: AppTheme.primaryColor),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
           ),
+          controller: _descriptionController,
+          keyboardType: TextInputType.text,
+          maxLength: 500,
         ),
-        controller: _descriptionController,
-        keyboardType: TextInputType.text,
-        maxLength: 500,
-      ),
-      gameViewModel.comments.isNotEmpty
-          ? Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.15,
-                      child: const Divider(
-                        thickness: 1,
-                        color: Colors.black26,
-                      ),
-                    ),
-                    AppHelpers.getSpacerWidth(1),
-                    Text(
-                      gameViewModel.answerState == true
-                          ? "CORRECT ANSWER BUT"
-                          : "INCORRECT ANSWER",
-                      style: TextStyle(
-                          color: gameViewModel.answerState == true
-                              ? Colors.green
-                              : Colors.black26,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    AppHelpers.getSpacerWidth(1),
-                    SizedBox(
-                      width: size.width * 0.15,
-                      child: const Divider(
-                        thickness: 1,
-                        color: Colors.black26,
-                      ),
-                    )
-                  ],
-                ),
-                AppHelpers.getSpacerHeight(1),
-                Text(gameViewModel.comments)
-              ],
-            )
-          : Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.15,
-                      child: const Divider(
-                        thickness: 1,
-                        color: Colors.black26,
-                      ),
-                    ),
-                    AppHelpers.getSpacerWidth(1),
-                    const Text(
-                      "OR RECORD YOUR ANSWER",
-                      style: TextStyle(
-                          color: Colors.black26, fontWeight: FontWeight.bold),
-                    ),
-                    AppHelpers.getSpacerWidth(1),
-                    SizedBox(
-                      width: size.width * 0.15,
-                      child: const Divider(
-                        thickness: 1,
-                        color: Colors.black26,
-                      ),
-                    )
-                  ],
-                ),
-                AppHelpers.getSpacerHeight(1),
-                Row(children: [
-                  Visibility(
-                    visible: gameViewModel.isRecorded,
-                    child: GestureDetector(
-                      onTap: gameViewModel.getRecorderFn(),
-                      child: CircleAvatar(
-                        backgroundColor: AppTheme.thirdyColor,
-                        child: FaIcon(
-                          !gameViewModel.mRecorder!.isRecording
-                              ? FontAwesomeIcons.recordVinyl
-                              : FontAwesomeIcons.stop,
-                          color: Colors.white,
+        gameViewModel.comments.isNotEmpty
+            ? Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.15,
+                        child: const Divider(
+                          thickness: 1,
+                          color: Colors.black26,
                         ),
                       ),
-                    ),
+                      AppHelpers.getSpacerWidth(1),
+                      Text(
+                        gameViewModel.answerState == true
+                            ? "CORRECT ANSWER BUT"
+                            : "INCORRECT ANSWER",
+                        style: TextStyle(
+                            color: gameViewModel.answerState == true
+                                ? Colors.green
+                                : Colors.black26,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      AppHelpers.getSpacerWidth(1),
+                      SizedBox(
+                        width: size.width * 0.15,
+                        child: const Divider(
+                          thickness: 1,
+                          color: Colors.black26,
+                        ),
+                      )
+                    ],
                   ),
-                  Visibility(
-                    visible: !gameViewModel.isRecorded,
-                    child: Expanded(
-                        child: ElevatedButton(
-                            onPressed: gameViewModel.getRecorderFn(),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    gameViewModel.mRecorder!.isRecording
-                                        ? AppTheme.primaryColorLight
-                                        : AppTheme.thirdyColor),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const FaIcon(
-                                  FontAwesomeIcons.recordVinyl,
-                                  color: Colors.white,
-                                ),
-                                AppHelpers.getSpacerWidth(0.5),
-                                Text(
-                                  !gameViewModel.mRecorder!.isRecording
-                                      ? "Record now"
-                                      : "Stop recording",
-                                  style: const TextStyle(
+                  AppHelpers.getSpacerHeight(1),
+                  Text(gameViewModel.comments)
+                ],
+              )
+            : Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.15,
+                        child: const Divider(
+                          thickness: 1,
+                          color: Colors.black26,
+                        ),
+                      ),
+                      AppHelpers.getSpacerWidth(1),
+                      const Text(
+                        "OR RECORD YOUR ANSWER",
+                        style: TextStyle(
+                            color: Colors.black26, fontWeight: FontWeight.bold),
+                      ),
+                      AppHelpers.getSpacerWidth(1),
+                      SizedBox(
+                        width: size.width * 0.15,
+                        child: const Divider(
+                          thickness: 1,
+                          color: Colors.black26,
+                        ),
+                      )
+                    ],
+                  ),
+                  AppHelpers.getSpacerHeight(1),
+                  Row(
+                    children: [
+                      Visibility(
+                        visible: gameViewModel.isRecorded,
+                        child: GestureDetector(
+                          onTap: gameViewModel.getRecorderFn(),
+                          child: CircleAvatar(
+                            backgroundColor: AppTheme.thirdyColor,
+                            child: FaIcon(
+                              !gameViewModel.mRecorder!.isRecording
+                                  ? FontAwesomeIcons.recordVinyl
+                                  : FontAwesomeIcons.stop,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: !gameViewModel.isRecorded,
+                        child: Expanded(
+                            child: ElevatedButton(
+                                onPressed: gameViewModel.getRecorderFn(),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        gameViewModel.mRecorder!.isRecording
+                                            ? AppTheme.primaryColorLight
+                                            : AppTheme.thirdyColor),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const FaIcon(
+                                      FontAwesomeIcons.recordVinyl,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ))),
-                  ),
-                  AppHelpers.getSpacerWidth(1),
-                  Visibility(
-                      visible: gameViewModel.mRecorder!.isRecording,
-                      child: const Text("Recording...")),
-                  Visibility(
-                    visible: gameViewModel.isRecorded,
-                    child: Expanded(
-                        child: ElevatedButton(
+                                    ),
+                                    AppHelpers.getSpacerWidth(0.5),
+                                    Text(
+                                      !gameViewModel.mRecorder!.isRecording
+                                          ? "Record now"
+                                          : "Stop recording",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ))),
+                      ),
+                      AppHelpers.getSpacerWidth(1),
+                      Visibility(
+                          visible: gameViewModel.mRecorder!.isRecording,
+                          child: const Text("Recording...")),
+                      Visibility(
+                        visible: gameViewModel.isRecorded,
+                        child: Expanded(
+                          child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: AppTheme.primaryColor),
                             onPressed: gameViewModel.getPlaybackFn(),
@@ -340,38 +345,43 @@ class GameView extends ConsumerWidget {
                                       fontWeight: FontWeight.bold),
                                 )
                               ],
-                            ))),
+                            ),
+                          ),
+                        ),
+                      ),
+                      AppHelpers.getSpacerWidth(0.5),
+                    ],
                   ),
-                  AppHelpers.getSpacerWidth(0.5),
-                ]),
-                AppHelpers.getSpacerHeight(1),
-                SizedBox(
-                  width: size.width * 0.4,
-                  child: gameViewModel.isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                              color: AppTheme.secondaryColor))
-                      : SimpleButton(
-                          color: AppTheme.secondaryColor,
-                          textColor: Colors.white,
-                          text: "Submit",
-                          onPressed: () {
-                            if (_descriptionController.text.isNotEmpty ||
-                                gameViewModel.isRecorded) {
-                              gameViewModel.setLoading(true);
-                              gameViewModel.validateQuestion(
-                                  homeViewModel
-                                      .questions[gameViewModel.index].label,
-                                  _descriptionController.text);
-                            } else {
-                              AppHelpers.showSnackBar(
-                                  context, "Provide your answer");
-                            }
-                          }),
-                )
-              ],
-            )
-    ]);
+                  AppHelpers.getSpacerHeight(1),
+                  SizedBox(
+                    width: size.width * 0.4,
+                    child: gameViewModel.isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                                color: AppTheme.secondaryColor))
+                        : SimpleButton(
+                            color: AppTheme.secondaryColor,
+                            textColor: Colors.white,
+                            text: "Submit",
+                            onPressed: () {
+                              if (_descriptionController.text.isNotEmpty ||
+                                  gameViewModel.isRecorded) {
+                                gameViewModel.setLoading(true);
+                                gameViewModel.validateQuestion(
+                                    homeViewModel
+                                        .questions[gameViewModel.index].label,
+                                    _descriptionController.text);
+                              } else {
+                                AppHelpers.showSnackBar(
+                                    context, "Provide your answer");
+                              }
+                            },
+                          ),
+                  )
+                ],
+              )
+      ],
+    );
   }
 
   void quitGame(context, size) {
