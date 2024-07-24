@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:prep_for_dev/core/utils/app_helpers.dart';
@@ -17,13 +18,19 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
-    return SafeArea(
-      child: AnnotatedRegion(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: AppTheme.primaryColor,
-          statusBarIconBrightness: Brightness.light,
-        ),
+    return AnnotatedRegion(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: AppTheme.primaryColor,
+        statusBarIconBrightness: Brightness.light,
+      ),
+      child: PopScope(
+        canPop: false,
         child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+          ),
           body: Consumer(
             builder: (context, ref, child) {
               final homeViewModel = ref.watch(homeViewModelProvider);
@@ -31,7 +38,9 @@ class HomeView extends StatelessWidget {
 
               return homeViewModel.isLoading
                   ? const LoadingPage(
-                      text: "Retrieving questions tailored to your profile...")
+                      text:
+                          "Chargement du questionnaire\nadapté à votre profil...",
+                    )
                   : SizedBox(
                       width: size.width,
                       child: ListView(
@@ -39,11 +48,13 @@ class HomeView extends StatelessWidget {
                         children: [
                           ListTile(
                             title: const Text(
-                              "Hello guy!",
+                              "Hello Sidibé !",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
                             ),
-                            subtitle: const Text("Welcome back to Prep4Dev"),
+                            subtitle: const Text("Bienvenue sur Prep4Dev"),
                             trailing: Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -59,9 +70,11 @@ class HomeView extends StatelessWidget {
                           ),
                           AppHelpers.getSpacerHeight(1),
                           const Text(
-                            "What type of position are you applying for?",
+                            "Quel est le sujet de votre apprentissage aujourd'hui ?",
                             style: TextStyle(
-                                fontSize: 35, fontWeight: FontWeight.bold),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           AppHelpers.getSpacerHeight(2),
                           Card(
@@ -73,9 +86,10 @@ class HomeView extends StatelessWidget {
                                 alignment: Alignment.center,
                                 height: 52,
                                 decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    border: Border.all(),
-                                    borderRadius: BorderRadius.circular(10)),
+                                  color: Colors.transparent,
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 child: Autocomplete<Technology>(
                                   optionsBuilder:
                                       (TextEditingValue textEditingValue) {
@@ -86,8 +100,9 @@ class HomeView extends StatelessWidget {
                                         .where((Technology option) {
                                       return option.title
                                           .toLowerCase()
-                                          .contains(textEditingValue.text
-                                              .toLowerCase());
+                                          .contains(
+                                            textEditingValue.text.toLowerCase(),
+                                          );
                                     });
                                   },
                                   displayStringForOption: (option) =>
@@ -107,18 +122,19 @@ class HomeView extends StatelessWidget {
                                       border: InputBorder.none,
                                       contentPadding: const EdgeInsets.only(
                                           top: 9, left: 10),
-                                      hintText: "Search here...",
+                                      hintText: "Rechercher ici...",
                                       hintStyle: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                       ),
                                       prefixIcon: const Padding(
-                                          padding: EdgeInsets.only(top: 0),
-                                          child: Icon(
-                                            FontAwesomeIcons.magnifyingGlass,
-                                            size: 20,
-                                            color: Colors.black38,
-                                          )),
+                                        padding: EdgeInsets.only(top: 0),
+                                        child: Icon(
+                                          FontAwesomeIcons.magnifyingGlass,
+                                          size: 20,
+                                          color: Colors.black38,
+                                        ),
+                                      ),
                                       suffixIcon: Padding(
                                         padding: const EdgeInsets.all(5),
                                         child: GestureDetector(
@@ -128,33 +144,39 @@ class HomeView extends StatelessWidget {
                                             if (text.isNotEmpty) {
                                               if (homeViewModel.technologies
                                                   .any(
-                                                      (Technology technology) =>
-                                                          technology.title ==
-                                                          text)) {
+                                                (Technology technology) =>
+                                                    technology.title == text,
+                                              )) {
                                                 homeViewModel
                                                     .changeQuestion(text);
                                                 TechnologyCard
                                                     .showModalBottomSheet(
-                                                        context,
-                                                        homeViewModel,
-                                                        gameViewModel);
+                                                  context,
+                                                  homeViewModel,
+                                                  gameViewModel,
+                                                );
                                               } else {
-                                                AppHelpers.showSnackBar(context,
-                                                    "Please choose a technology first");
+                                                AppHelpers.showSnackBar(
+                                                  context,
+                                                  "Veuillez choisir une technologie",
+                                                );
                                               }
                                             } else {
-                                              AppHelpers.showSnackBar(context,
-                                                  "Please type something");
+                                              AppHelpers.showSnackBar(
+                                                context,
+                                                "Ecrivez quelque chose",
+                                              );
                                             }
                                           },
                                           child: const CircleAvatar(
-                                              backgroundColor:
-                                                  AppTheme.secondaryColor,
-                                              child: Icon(
-                                                FontAwesomeIcons.paperPlane,
-                                                size: 18,
-                                                color: Colors.white,
-                                              )),
+                                            backgroundColor:
+                                                AppTheme.secondaryColor,
+                                            child: Icon(
+                                              FontAwesomeIcons.paperPlane,
+                                              size: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -168,14 +190,15 @@ class HomeView extends StatelessWidget {
                           GridView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: 10,
+                            itemCount: homeViewModel.technologies.length,
                             padding: const EdgeInsets.only(bottom: 20),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 20,
-                                    mainAxisSpacing: 20,
-                                    childAspectRatio: 0.9),
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 20,
+                              childAspectRatio: 0.9,
+                            ),
                             itemBuilder: (ctx, index) {
                               return TechnologyCard(
                                 parentContext: context,

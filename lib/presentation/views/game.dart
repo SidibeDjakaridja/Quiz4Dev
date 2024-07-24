@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,14 +27,22 @@ class GameView extends ConsumerWidget {
             color: AppTheme.primaryColor,
             textColor: Colors.white,
             text: (gameViewModel.index < homeViewModel.questions.length - 1)
-                ? "NEXT QUESTION"
-                : "FINISH",
+                ? "QUESTION SUIVANTE"
+                : "TERMINER",
             onPressed: () {
               if (gameViewModel.index < homeViewModel.questions.length - 1) {
                 _descriptionController.clear();
                 gameViewModel.changeIndex();
               } else {
-                Navigator.pop(context);
+                print(homeViewModel.questions.length);
+                Navigator.pushReplacementNamed(
+                  context,
+                  "/success",
+                  arguments: {
+                    "score": gameViewModel.score,
+                    "total": homeViewModel.questions.length
+                  },
+                );
               }
             }),
       ),
@@ -63,9 +72,10 @@ class GameView extends ConsumerWidget {
                     homeViewModel.questions[gameViewModel.index].label,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        color: Colors.black87,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.black87,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   AppHelpers.getSpacerHeight(3),
                   Visibility(
@@ -110,9 +120,10 @@ class GameView extends ConsumerWidget {
               child: Text(
                 "${homeViewModel.technologyChoosen} - ${homeViewModel.level}",
                 style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12),
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
               ),
             ),
           ),
@@ -123,9 +134,12 @@ class GameView extends ConsumerWidget {
             child: Card(
               elevation: 8,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                  side:
-                      const BorderSide(width: 2, color: AppTheme.primaryColor)),
+                borderRadius: BorderRadius.circular(40),
+                side: const BorderSide(
+                  width: 2,
+                  color: AppTheme.primaryColor,
+                ),
+              ),
               child: CircleAvatar(
                 radius: 40,
                 backgroundColor: Colors.white,
@@ -134,34 +148,37 @@ class GameView extends ConsumerWidget {
                   child: Text(
                     "${gameViewModel.score}",
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.primaryColor,
-                        fontSize: 20),
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.primaryColor,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
             )),
         Positioned(
-            top: 45,
-            right: 0,
-            child: GestureDetector(
-              onTap: () {
-                quitGame(context, size);
-              },
-              child: Card(
-                elevation: 8,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 20,
-                    child: FaIcon(
-                      FontAwesomeIcons.xmark,
-                      color: Colors.white,
-                    )),
+          top: 45,
+          right: 0,
+          child: GestureDetector(
+            onTap: () {
+              quitGame(context, size);
+            },
+            child: Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
-            ))
+              child: const CircleAvatar(
+                backgroundColor: Colors.red,
+                radius: 20,
+                child: FaIcon(
+                  FontAwesomeIcons.xmark,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
@@ -189,7 +206,7 @@ class GameView extends ConsumerWidget {
             fontSize: 15,
           ),
           decoration: InputDecoration(
-            hintText: "Write your answer here",
+            hintText: "Ecrivez votre réponse ici",
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(width: 1, color: Colors.black),
               borderRadius: BorderRadius.circular(10),
@@ -219,13 +236,14 @@ class GameView extends ConsumerWidget {
                       AppHelpers.getSpacerWidth(1),
                       Text(
                         gameViewModel.answerState == true
-                            ? "CORRECT ANSWER BUT"
-                            : "INCORRECT ANSWER",
+                            ? "REPONSE CORRECTE MAIS"
+                            : "REPONSE INCORRECTE",
                         style: TextStyle(
-                            color: gameViewModel.answerState == true
-                                ? Colors.green
-                                : Colors.black26,
-                            fontWeight: FontWeight.bold),
+                          color: gameViewModel.answerState == true
+                              ? Colors.green
+                              : Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       AppHelpers.getSpacerWidth(1),
                       SizedBox(
@@ -255,9 +273,11 @@ class GameView extends ConsumerWidget {
                       ),
                       AppHelpers.getSpacerWidth(1),
                       const Text(
-                        "OR RECORD YOUR ANSWER",
+                        "OU ENVOYER UNE REPONSE VOCALE",
                         style: TextStyle(
-                            color: Colors.black26, fontWeight: FontWeight.bold),
+                          color: Colors.black26,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       AppHelpers.getSpacerWidth(1),
                       SizedBox(
@@ -290,31 +310,34 @@ class GameView extends ConsumerWidget {
                       Visibility(
                         visible: !gameViewModel.isRecorded,
                         child: Expanded(
-                            child: ElevatedButton(
-                                onPressed: gameViewModel.getRecorderFn(),
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        gameViewModel.mRecorder!.isRecording
-                                            ? AppTheme.primaryColorLight
-                                            : AppTheme.thirdyColor),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const FaIcon(
-                                      FontAwesomeIcons.recordVinyl,
-                                      color: Colors.white,
-                                    ),
-                                    AppHelpers.getSpacerWidth(0.5),
-                                    Text(
-                                      !gameViewModel.mRecorder!.isRecording
-                                          ? "Record now"
-                                          : "Stop recording",
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ))),
+                          child: ElevatedButton(
+                            onPressed: gameViewModel.getRecorderFn(),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    gameViewModel.mRecorder!.isRecording
+                                        ? AppTheme.primaryColorLight
+                                        : AppTheme.thirdyColor),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const FaIcon(
+                                  FontAwesomeIcons.recordVinyl,
+                                  color: Colors.white,
+                                ),
+                                AppHelpers.getSpacerWidth(0.5),
+                                Text(
+                                  !gameViewModel.mRecorder!.isRecording
+                                      ? "Enregistrer un vocal"
+                                      : "Arrêter l'enregistrement",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                       AppHelpers.getSpacerWidth(1),
                       Visibility(
@@ -358,11 +381,13 @@ class GameView extends ConsumerWidget {
                     child: gameViewModel.isLoading
                         ? const Center(
                             child: CircularProgressIndicator(
-                                color: AppTheme.secondaryColor))
+                              color: AppTheme.secondaryColor,
+                            ),
+                          )
                         : SimpleButton(
                             color: AppTheme.secondaryColor,
                             textColor: Colors.white,
-                            text: "Submit",
+                            text: "Soumettre",
                             onPressed: () {
                               if (_descriptionController.text.isNotEmpty ||
                                   gameViewModel.isRecorded) {
@@ -373,7 +398,9 @@ class GameView extends ConsumerWidget {
                                     _descriptionController.text);
                               } else {
                                 AppHelpers.showSnackBar(
-                                    context, "Provide your answer");
+                                  context,
+                                  "Fournissez votre réponse",
+                                );
                               }
                             },
                           ),
@@ -391,10 +418,12 @@ class GameView extends ConsumerWidget {
               height: 200,
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+              ),
               width: size.width,
               child: Column(
                 children: [
@@ -402,13 +431,14 @@ class GameView extends ConsumerWidget {
                   const Text(
                     "Confirmation",
                     style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   AppHelpers.getSpacerHeight(1),
                   const Text(
-                    "Are you sure you want to quit the game and lose your progress?",
+                    "Êtes-vous sûr de vouloir quitter la partie et perdre votre progression ?",
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.black),
                   ),
@@ -420,7 +450,7 @@ class GameView extends ConsumerWidget {
                         child: SimpleButton(
                             color: const Color(0xFF0F8C3B),
                             textColor: Colors.white,
-                            text: "Yes",
+                            text: "Oui",
                             onPressed: () {
                               Navigator.pop(context);
                               Navigator.pop(context);
@@ -431,7 +461,7 @@ class GameView extends ConsumerWidget {
                         child: SimpleButton(
                             color: Colors.red,
                             textColor: Colors.white,
-                            text: "No",
+                            text: "Non",
                             onPressed: () {
                               Navigator.pop(context);
                             }),

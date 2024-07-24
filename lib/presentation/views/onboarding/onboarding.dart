@@ -27,14 +27,14 @@ class OnBoardingScreen extends StatelessWidget {
             const Text("Prep4Dev 〽️",
                 style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold)),
             AppHelpers.getSpacerHeight(1),
-            Image.asset("assets/images/interview.png"),
-            const Text("Springboard to Interview Success",
+            Image.asset("assets/images/developpeur.png"),
+            const Text("Tremplin pour apprendre en s'amusant",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             AppHelpers.getSpacerHeight(1),
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                "Prepare for developer interviews with our carefully selected questions and answers from Gemini AI.",
+                "Apprenez les concepts les plus basiques du développement avec nos questions et réponses soigneusement sélectionnées par Gemini AI.",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16),
               ),
@@ -43,7 +43,7 @@ class OnBoardingScreen extends StatelessWidget {
             SimpleButton(
               color: AppTheme.primaryColor,
               textColor: Colors.white,
-              text: 'Get Started',
+              text: "Commencer Maintenant",
               onPressed: () {
                 SharedPreferencesHelper.setIntValue("is_not_first", 1);
                 Navigator.pushNamedAndRemoveUntil(

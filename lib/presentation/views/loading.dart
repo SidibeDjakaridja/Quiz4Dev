@@ -8,9 +8,11 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
-        child: Stack(alignment: Alignment.center, children: [
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
           Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Image.asset(
               "assets/images/ai_robot.png",
@@ -20,10 +22,18 @@ class LoadingPage extends StatelessWidget {
             Text(
               text,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20, color: Colors.black54),
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black54,
+              ),
             ),
           ]),
-          const Positioned(bottom: 0, child: CircularProgressIndicator())
-        ]));
+          const Positioned(
+            bottom: 0,
+            child: CircularProgressIndicator(),
+          )
+        ],
+      ),
+    );
   }
 }

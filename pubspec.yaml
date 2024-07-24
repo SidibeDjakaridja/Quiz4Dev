@@ -46,6 +46,8 @@ dependencies:
   path_provider: ^2.1.2
   shared_preferences: ^2.2.2
   dio:
+  flutter_staggered_animations: ^1.1.1
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +76,7 @@ flutter:
     - assets/images/
     - assets/images/technos/
     - assets/env/
+    - assets/lotties/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

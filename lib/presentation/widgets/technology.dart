@@ -47,11 +47,14 @@ class TechnologyCard extends ConsumerWidget {
                 ),
               ),
               AppHelpers.getSpacerHeight(2),
-              Text(technology.title,
-                  style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                technology.title,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
@@ -69,26 +72,29 @@ class TechnologyCard extends ConsumerWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(10),
             decoration: const BoxDecoration(
-                color: AppTheme.secondaryColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
+            ),
             child: ListView(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Choose your level",
+                      "Choisissez votre niveau",
                       style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
                     GestureDetector(
                       child: const FaIcon(
                         FontAwesomeIcons.xmark,
-                        color: Colors.white,
+                        color: Colors.black,
                         size: 18,
                       ),
                       onTap: () => Navigator.pop(ctx),
@@ -96,12 +102,27 @@ class TechnologyCard extends ConsumerWidget {
                   ],
                 ),
                 AppHelpers.getSpacerHeight(2),
-                getLevelCard("Junior Developer", context, ctx, homeViewModel,
-                    gameViewModel),
-                getLevelCard("Mid-Level Developer", context, ctx, homeViewModel,
-                    gameViewModel),
-                getLevelCard("Senior Developer", context, ctx, homeViewModel,
-                    gameViewModel)
+                getLevelCard(
+                  "Dévelopeur Junior",
+                  context,
+                  ctx,
+                  homeViewModel,
+                  gameViewModel,
+                ),
+                getLevelCard(
+                  "Développeur de niveau intermédiaire",
+                  context,
+                  ctx,
+                  homeViewModel,
+                  gameViewModel,
+                ),
+                getLevelCard(
+                  "Dévelopeur Senior",
+                  context,
+                  ctx,
+                  homeViewModel,
+                  gameViewModel,
+                )
               ],
             ),
           );
@@ -127,16 +148,22 @@ class TechnologyCard extends ConsumerWidget {
         margin: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Colors.white60,
+          color: AppTheme.primaryColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               level,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-            const FaIcon(FontAwesomeIcons.arrowRight)
+            const FaIcon(
+              FontAwesomeIcons.arrowRight,
+              color: Colors.white,
+            )
           ],
         ),
       ),
