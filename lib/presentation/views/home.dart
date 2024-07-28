@@ -46,26 +46,27 @@ class HomeView extends StatelessWidget {
                       child: ListView(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         children: [
-                          ListTile(
-                            title: const Text(
-                              "Hello Sidibé !",
+                          const ListTile(
+                            title: Text(
+                              "Hello ! 👋🏽",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22,
                               ),
                             ),
-                            subtitle: const Text("Bienvenue sur Prep4Dev"),
-                            trailing: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: AppTheme.secondaryColor,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: const FaIcon(
-                                FontAwesomeIcons.clockRotateLeft,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            ),
+                            subtitle: Text("Bienvenue sur Quiz4Dev"),
+                            // trailing: Container(
+                            //   padding: const EdgeInsets.all(10),
+                            //   decoration: BoxDecoration(
+                            //     color: AppTheme.secondaryColor,
+                            //     borderRadius: BorderRadius.circular(10),
+                            //   ),
+                            //   child: const FaIcon(
+                            //     FontAwesomeIcons.clockRotateLeft,
+                            //     size: 20,
+                            //     color: Colors.white,
+                            //   ),
+                            // ),
                             contentPadding: EdgeInsets.zero,
                           ),
                           AppHelpers.getSpacerHeight(1),
@@ -96,14 +97,16 @@ class HomeView extends StatelessWidget {
                                     if (textEditingValue.text == '') {
                                       return const Iterable<Technology>.empty();
                                     }
-                                    return homeViewModel.technologies
-                                        .where((Technology option) {
-                                      return option.title
-                                          .toLowerCase()
-                                          .contains(
-                                            textEditingValue.text.toLowerCase(),
-                                          );
-                                    });
+                                    return homeViewModel.technologies.where(
+                                      (Technology option) {
+                                        return option.title
+                                            .toLowerCase()
+                                            .contains(
+                                              textEditingValue.text
+                                                  .toLowerCase(),
+                                            );
+                                      },
+                                    );
                                   },
                                   displayStringForOption: (option) =>
                                       option.title,
@@ -186,11 +189,41 @@ class HomeView extends StatelessWidget {
                                   },
                                 )),
                           ),
+                          AppHelpers.getSpacerHeight(5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const Text(
+                                "Mes Technologies",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    "/alltechnologies",
+                                  );
+                                },
+                                child: const Text(
+                                  "Voir plus",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           AppHelpers.getSpacerHeight(2),
                           GridView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: homeViewModel.technologies.length,
+                            itemCount: 4,
+                            // itemCount: homeViewModel.technologies.length,
                             padding: const EdgeInsets.only(bottom: 20),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(

@@ -24,7 +24,7 @@ class OnBoardingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Prep4Dev 〽️",
+            const Text("Quiz4Dev 〽️",
                 style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold)),
             AppHelpers.getSpacerHeight(1),
             Image.asset("assets/images/developpeur.png"),

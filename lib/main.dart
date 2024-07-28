@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Prep4Dev',
+      title: 'Quiz4Dev',
       theme: AppTheme.lightTheme,
       onGenerateRoute: AppRouter.generateRoute,
       debugShowCheckedModeBanner: false,

@@ -3,6 +3,7 @@ import 'package:prep_for_dev/presentation/views/game.dart';
 import 'package:prep_for_dev/presentation/views/home.dart';
 import 'package:prep_for_dev/presentation/views/success.dart';
 
+import '../views/allTechnologies.dart';
 import '../views/onboarding/onboarding.dart';
 import '../views/onboarding/splash.dart';
 
@@ -26,6 +27,8 @@ class AppRouter {
             total: total,
           ),
         );
+      case '/alltechnologies':
+        return MaterialPageRoute(builder: (_) => const AllTechnologies());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

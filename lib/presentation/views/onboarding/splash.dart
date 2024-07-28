@@ -32,9 +32,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/splash_bg.png"),
-                fit: BoxFit.cover)),
+          image: DecorationImage(
+            image: AssetImage("assets/images/splash_bg.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
         alignment: Alignment.center,
         child: const LogoWidget(size: 90),
       ),

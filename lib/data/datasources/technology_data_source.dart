@@ -102,5 +102,9 @@ class TechnologyDataSource {
       title: 'Adonis.js',
       imagePath: 'assets/images/technos/gatsby.png',
     ),
+    TechnologyModel(
+      title: 'Node.js',
+      imagePath: 'assets/images/technos/nodejs.png',
+    ),
   ];
 }
