@@ -64,45 +64,47 @@ class _SuccessState extends State<Success> {
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.1,
           ),
-          child: Column(
-            children: [
-              Center(
-                child: Lottie.asset('assets/lotties/congratulations.json'),
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "${widget.score["score"]}",
-                      style: const TextStyle(
-                        fontSize: 60,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.black,
-                      ),
-                    ),
-                    TextSpan(
-                      text: "/${widget.score["total"]}",
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Center(
+                  child: Lottie.asset('assets/lotties/congratulations.json'),
                 ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              showScore(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-              SimpleButton(
-                color: AppTheme.primaryColor,
-                textColor: Colors.white,
-                text: "Reprendre".toUpperCase(),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, "/home");
-                },
-              ),
-            ],
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "${widget.score["score"]}",
+                        style: const TextStyle(
+                          fontSize: 60,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "/${widget.score["total"]}",
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                showScore(),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                SimpleButton(
+                  color: AppTheme.primaryColor,
+                  textColor: Colors.white,
+                  text: "Reprendre".toUpperCase(),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "/home");
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

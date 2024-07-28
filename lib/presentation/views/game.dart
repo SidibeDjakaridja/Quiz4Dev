@@ -265,7 +265,7 @@ class GameView extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: size.width * 0.15,
+                        width: size.width * 0.14,
                         child: const Divider(
                           thickness: 1,
                           color: Colors.black26,
@@ -281,7 +281,7 @@ class GameView extends ConsumerWidget {
                       ),
                       AppHelpers.getSpacerWidth(1),
                       SizedBox(
-                        width: size.width * 0.15,
+                        width: size.width * 0.14,
                         child: const Divider(
                           thickness: 1,
                           color: Colors.black26,
