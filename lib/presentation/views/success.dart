@@ -36,10 +36,12 @@ class _SuccessState extends State<Success> {
         textAlign: TextAlign.center,
       );
     } else if (widget.score["score"]! > 15) {
-      return (const Text(
-        "Félicitations ! Vous avez fait un travail remarquable. Avec ce niveau de compétence, vous êtes prêt(e) pour de nouveaux défis.",
-        textAlign: TextAlign.center,
-      ));
+      return (
+        const Text(
+          "Félicitations ! Vous avez fait un travail remarquable. Avec ce niveau de compétence, vous êtes prêt(e) pour de nouveaux défis.",
+          textAlign: TextAlign.center,
+        ),
+      );
     }
   }
 
