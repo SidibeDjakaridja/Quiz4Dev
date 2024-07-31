@@ -59,6 +59,7 @@ class _SuccessState extends State<Success> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          centerTitle: true,
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(
