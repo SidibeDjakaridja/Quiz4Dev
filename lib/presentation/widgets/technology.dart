@@ -33,8 +33,9 @@ class TechnologyCard extends ConsumerWidget {
         margin: EdgeInsets.zero,
         child: Container(
           decoration: BoxDecoration(
-              color: AppTheme.primaryColor,
-              borderRadius: BorderRadius.circular(30)),
+            color: AppTheme.primaryColor,
+            borderRadius: BorderRadius.circular(30),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
