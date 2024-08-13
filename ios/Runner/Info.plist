@@ -55,5 +55,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.2</string>
 </dict>
 </plist>

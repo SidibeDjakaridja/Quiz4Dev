@@ -47,6 +47,25 @@ class _HomeViewState extends State<HomeView> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
+            title: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hello ! 👋🏽",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                ),
+                Text(
+                  "Bienvenue sur Quiz4Dev",
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            centerTitle: false,
           ),
           body: Consumer(
             builder: (context, ref, child) {
@@ -63,20 +82,9 @@ class _HomeViewState extends State<HomeView> {
                       child: ListView(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         children: [
-                          const ListTile(
-                            title: Text(
-                              "Hello ! 👋🏽",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                              ),
-                            ),
-                            subtitle: Text("Bienvenue sur Quiz4Dev"),
-                            contentPadding: EdgeInsets.zero,
-                          ),
                           AppHelpers.getSpacerHeight(1),
                           const Text(
-                            "Quelle technologie souhaitez-vous \napprendre aujourd'hui ?",
+                            "Que souhaitez-vous \napprendre aujourd'hui ?",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -184,8 +192,7 @@ class _HomeViewState extends State<HomeView> {
                                   itemBuilder: (ctx, index) {
                                     return TechnologyCard(
                                       parentContext: context,
-                                      technology:
-                                          filteredTechnologies[index],
+                                      technology: filteredTechnologies[index],
                                     );
                                   },
                                 )
@@ -198,7 +205,7 @@ class _HomeViewState extends State<HomeView> {
                                           CrossAxisAlignment.end,
                                       children: [
                                         const Text(
-                                          "Mes Technologies",
+                                          "Technologies",
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.w900,
@@ -226,9 +233,9 @@ class _HomeViewState extends State<HomeView> {
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
-                                      itemCount:
-                                          homeViewModel.technologies.length,
-                                      padding: const EdgeInsets.only(bottom: 20),
+                                      itemCount: 4,
+                                      padding:
+                                          const EdgeInsets.only(bottom: 20),
                                       gridDelegate:
                                           const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
@@ -239,8 +246,8 @@ class _HomeViewState extends State<HomeView> {
                                       itemBuilder: (ctx, index) {
                                         return TechnologyCard(
                                           parentContext: context,
-                                          technology: homeViewModel
-                                              .technologies[index],
+                                          technology:
+                                              homeViewModel.technologies[index],
                                         );
                                       },
                                     ),

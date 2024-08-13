@@ -11,6 +11,9 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppTheme.primaryColor.withOpacity(0.3),
+      ),
       body: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(20),

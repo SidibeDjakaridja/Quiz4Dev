@@ -34,7 +34,6 @@ class GameView extends ConsumerWidget {
                 _descriptionController.clear();
                 gameViewModel.changeIndex();
               } else {
-                print(homeViewModel.questions.length);
                 Navigator.pushReplacementNamed(
                   context,
                   "/success",
@@ -103,12 +102,17 @@ class GameView extends ConsumerWidget {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+          padding: const EdgeInsets.only(
+            left: 40,
+            top: 40,
+            bottom: 40,
+          ),
           child: Card(
             elevation: 8,
             color: Colors.white,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Container(
               height: size.height * 0.07,
               width: size.width,
@@ -117,45 +121,60 @@ class GameView extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
               ),
-              child: Text(
-                "${homeViewModel.technologyChoosen} - ${homeViewModel.level}",
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${homeViewModel.technologyChoosen}",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    "${homeViewModel.level}",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
         Positioned(
-            top: 30,
-            left: 0,
-            child: Card(
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40),
-                side: const BorderSide(
-                  width: 2,
-                  color: AppTheme.primaryColor,
-                ),
+          top: 30,
+          left: 0,
+          child: Card(
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40),
+              side: const BorderSide(
+                width: 2,
+                color: AppTheme.primaryColor,
               ),
-              child: CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
-                    "${gameViewModel.score}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primaryColor,
-                      fontSize: 20,
-                    ),
+            ),
+            child: CircleAvatar(
+              radius: 40,
+              backgroundColor: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                  "${gameViewModel.score}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.primaryColor,
+                    fontSize: 25,
                   ),
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
         Positioned(
           top: 45,
           right: 0,
@@ -184,16 +203,20 @@ class GameView extends ConsumerWidget {
   }
 
   Widget mcqSection(homeViewModel, gameViewModel) {
-    return Column(children: [
-      ...homeViewModel.questions[gameViewModel.index].answers
-          .map((answer) => AnswerWidget(
+    return Column(
+      children: [
+        ...homeViewModel.questions[gameViewModel.index].answers
+            .map(
+              (answer) => AnswerWidget(
                 answerModel: answer,
                 indexAnswer: homeViewModel
                     .questions[gameViewModel.index].answers
                     .indexOf(answer),
-              ))
-          .toList()
-    ]);
+              ),
+            )
+            .toList()
+      ],
+    );
   }
 
   Widget questionSection(size, homeViewModel, gameViewModel, context) {
@@ -213,7 +236,9 @@ class GameView extends ConsumerWidget {
             ),
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(width: 1, color: AppTheme.primaryColor),
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
             ),
           ),
           controller: _descriptionController,
@@ -234,14 +259,17 @@ class GameView extends ConsumerWidget {
                         ),
                       ),
                       AppHelpers.getSpacerWidth(1),
-                      Text(
-                        gameViewModel.answerState == true
-                            ? "REPONSE CORRECTE MAIS"
-                            : "REPONSE INCORRECTE",
+                      const Text(
+                        "PLUS DE DETAILS",
+                        // gameViewModel.answerState == true
+                        //     ? "REPONSE CORRECTE MAIS"
+                        //     : "REPONSE INCORRECTE",
                         style: TextStyle(
-                          color: gameViewModel.answerState == true
-                              ? Colors.green
-                              : Colors.red,
+                          color:
+                              //  gameViewModel.answerState == true
+                              //     ?
+                              Colors.black,
+                          // : Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -313,10 +341,11 @@ class GameView extends ConsumerWidget {
                           child: ElevatedButton(
                             onPressed: gameViewModel.getRecorderFn(),
                             style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    gameViewModel.mRecorder!.isRecording
-                                        ? AppTheme.primaryColorLight
-                                        : AppTheme.thirdyColor),
+                              backgroundColor:
+                                  gameViewModel.mRecorder!.isRecording
+                                      ? AppTheme.primaryColorLight
+                                      : AppTheme.thirdyColor,
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -361,8 +390,8 @@ class GameView extends ConsumerWidget {
                                 AppHelpers.getSpacerWidth(0.5),
                                 Text(
                                   gameViewModel.mPlayer!.isPlaying
-                                      ? "Stop reading"
-                                      : "Read now",
+                                      ? "Arrêter"
+                                      : "Ecouter",
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
@@ -413,63 +442,66 @@ class GameView extends ConsumerWidget {
 
   void quitGame(context, size) {
     showModalBottomSheet(
-        context: context,
-        builder: (ctx) => Container(
-              height: 200,
-              padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
+      context: context,
+      builder: (ctx) => Container(
+        height: 200,
+        padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        width: size.width,
+        child: Column(
+          children: [
+            AppHelpers.getSpacerHeight(1),
+            const Text(
+              "Confirmation",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            AppHelpers.getSpacerHeight(1),
+            const Text(
+              "Êtes-vous sûr de vouloir quitter la partie et perdre votre progression ?",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black),
+            ),
+            AppHelpers.getSpacerHeight(1),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: SimpleButton(
+                    color: const Color(0xFF0F8C3B),
+                    textColor: Colors.white,
+                    text: "Oui",
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-              ),
-              width: size.width,
-              child: Column(
-                children: [
-                  AppHelpers.getSpacerHeight(1),
-                  const Text(
-                    "Confirmation",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+                AppHelpers.getSpacerWidth(1),
+                Expanded(
+                  child: SimpleButton(
+                    color: Colors.red,
+                    textColor: Colors.white,
+                    text: "Non",
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                  AppHelpers.getSpacerHeight(1),
-                  const Text(
-                    "Êtes-vous sûr de vouloir quitter la partie et perdre votre progression ?",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  AppHelpers.getSpacerHeight(1),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: SimpleButton(
-                            color: const Color(0xFF0F8C3B),
-                            textColor: Colors.white,
-                            text: "Oui",
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            }),
-                      ),
-                      AppHelpers.getSpacerWidth(1),
-                      Expanded(
-                        child: SimpleButton(
-                            color: Colors.red,
-                            textColor: Colors.white,
-                            text: "Non",
-                            onPressed: () {
-                              Navigator.pop(context);
-                            }),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ));
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
