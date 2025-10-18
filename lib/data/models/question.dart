@@ -11,12 +11,19 @@ class QuestionModel extends Question {
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) {
     List<Answer> answers = [];
-    for (var item in json['answers']) {
-      answers.add(AnswerModel.fromJson(item));
+
+    // Gérer le cas où answers peut être null ou vide
+    if (json['answers'] != null && json['answers'] is List) {
+      for (var item in json['answers']) {
+        if (item != null) {
+          answers.add(AnswerModel.fromJson(item));
+        }
+      }
+      answers.shuffle();
     }
-    answers.shuffle();
+
     return QuestionModel(
-      label: json['label'],
+      label: json['label']?.toString() ?? '',
       answers: answers,
     );
   }

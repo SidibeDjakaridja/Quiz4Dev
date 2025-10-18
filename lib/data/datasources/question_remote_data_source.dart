@@ -1,20 +1,23 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:google_generative_ai/google_generative_ai.dart';
 
-import '../../core/api/gemini_api.dart';
+import '../../core/api/chatgpt_api.dart';
 import '../../core/exceptions/gemini_exception.dart';
 import '../../domain/entities/question.dart';
 import '../models/question.dart';
 
 class QuestionRemoteDataSource {
   const QuestionRemoteDataSource({
-    required GeminiApi client,
+    required ChatGPTApi client,
   }) : _client = client;
 
-  final GeminiApi _client;
+  final ChatGPTApi _client;
 
   Future<List<Question>> getQuestions(String technology, String level) async {
+    print('🟡 QuestionRemoteDataSource: Début du chargement des questions');
+    print('🟡 Technologie: $technology');
+    print('🟡 Niveau: $level');
+
     final prompt = '''
     Tu es un système qui aide les développeurs à se préparer aux entretiens d'embauche. Crée une liste de questions qui pourraient aider un développeur à réussir un entretien pour un $level poste dans $technology.
     Donne-moi 20 questions, dont 15 QCM (4 options maximum par question mais une option doit être correcte par question) et 5 petites questions à répondre, le tout dans un seul bloc.
@@ -22,27 +25,42 @@ class QuestionRemoteDataSource {
     Ne renvoie pas le résultat sous forme de Markdown.
     ''';
     try {
+      print('🟡 QuestionRemoteDataSource: Envoi de la requête à ChatGPT...');
       final response = await _client.generateContent(prompt);
 
       if (response == null) {
+        print('🔴 QuestionRemoteDataSource: La réponse de ChatGPT est vide');
         throw const GeminiException('La réponse est vide');
       }
+
+      print('🟡 QuestionRemoteDataSource: Réponse reçue, nettoyage du JSON...');
       String cleanedResponse = response.replaceAll(RegExp(r'```json\n*'), '');
       cleanedResponse = cleanedResponse.replaceAll(RegExp(r'```'), '');
-      if (jsonDecode(cleanedResponse)
-          case {'questions': List<dynamic> questions}) {
-        return questions.map((json) => QuestionModel.fromJson(json)).toList();
-      }
+      cleanedResponse = cleanedResponse.trim();
 
-      throw const GeminiException('Invalid JSON schema');
-    } on GenerativeAIException {
-      throw const GeminiException(
-        'Problem with the Generative AI service',
-      );
+      print('🟡 QuestionRemoteDataSource: JSON nettoyé: $cleanedResponse');
+
+      try {
+        final jsonData = jsonDecode(cleanedResponse);
+        if (jsonData is Map<String, dynamic> && jsonData['questions'] is List) {
+          final questions = jsonData['questions'] as List<dynamic>;
+          print(
+              '🟡 QuestionRemoteDataSource: Parsing réussi, ${questions.length} questions trouvées');
+          return questions.map((json) => QuestionModel.fromJson(json)).toList();
+        } else {
+          print('🔴 QuestionRemoteDataSource: Structure JSON invalide');
+          throw const GeminiException('Invalid JSON structure');
+        }
+      } catch (e) {
+        print('🔴 QuestionRemoteDataSource: Erreur de parsing JSON: $e');
+        print('🔴 JSON problématique: $cleanedResponse');
+        throw GeminiException('Erreur de parsing JSON: $e');
+      }
     } catch (e) {
       if (e is GeminiException) rethrow;
 
-      throw const GeminiException();
+      print('Erreur dans QuestionRemoteDataSource.getQuestions: $e');
+      throw GeminiException('Erreur lors de la génération des questions: $e');
     }
   }
 
@@ -80,20 +98,30 @@ class QuestionRemoteDataSource {
       String cleanedResponse = response.replaceAll(RegExp(r'```json\n*'), '');
       cleanedResponse = cleanedResponse.replaceAll(RegExp(r'```'), '');
 
-      if (jsonDecode(cleanedResponse)
-          case {'isCorrect': bool isCorrect, 'answer': String answer}) {
-        return (isCorrect, answer);
+      try {
+        final jsonData = jsonDecode(cleanedResponse);
+        if (jsonData is Map<String, dynamic> &&
+            jsonData.containsKey('isCorrect') &&
+            jsonData.containsKey('answer')) {
+          final isCorrect = jsonData['isCorrect'] == true;
+          final answer = jsonData['answer']?.toString() ?? '';
+          return (isCorrect, answer);
+        } else {
+          print(
+              '🔴 QuestionRemoteDataSource: Structure JSON invalide pour validation');
+          throw const GeminiException('Invalid JSON structure for validation');
+        }
+      } catch (e) {
+        print(
+            '🔴 QuestionRemoteDataSource: Erreur de parsing JSON pour validation: $e');
+        print('🔴 JSON problématique: $cleanedResponse');
+        throw GeminiException('Erreur de parsing JSON pour validation: $e');
       }
-
-      throw const GeminiException('Invalid JSON schema');
-    } on GenerativeAIException {
-      throw const GeminiException(
-        'Problem with the Generative AI service',
-      );
     } catch (e) {
       if (e is GeminiException) rethrow;
 
-      throw const GeminiException();
+      print('Erreur dans QuestionRemoteDataSource.validateQuestion: $e');
+      throw GeminiException('Erreur lors de la validation de la question: $e');
     }
   }
 }

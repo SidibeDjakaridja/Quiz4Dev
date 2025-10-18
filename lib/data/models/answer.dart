@@ -8,8 +8,8 @@ class AnswerModel extends Answer {
 
   factory AnswerModel.fromJson(Map<String, dynamic> json) {
     return AnswerModel(
-      label: json['label'],
-      isCorrect: json['isCorrect'],
+      label: json['label']?.toString() ?? '',
+      isCorrect: json['isCorrect'] == true,
     );
   }
 

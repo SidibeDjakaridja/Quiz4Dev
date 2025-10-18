@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prep_for_dev/presentation/views/loading.dart';
 
-import '../viewmodels/game.dart';
 import '../viewmodels/home.dart';
 import '../widgets/technology.dart';
 
@@ -28,7 +27,6 @@ class _AllTechnologiesState extends State<AllTechnologies> {
       body: Consumer(
         builder: (context, ref, child) {
           final homeViewModel = ref.watch(homeViewModelProvider);
-          final gameViewModel = ref.watch(gameViewModelProvider);
           return homeViewModel.isLoading
               ? const LoadingPage(
                   text: "Chargement du questionnaire\nadapté à votre profil...",

@@ -19,12 +19,11 @@ class AppRouter {
       case '/game':
         return MaterialPageRoute(builder: (_) => GameView());
       case '/success':
-        final score = settings.arguments as Map<String, int>;
-        final total = settings.arguments as Map<String, int>;
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => Success(
-            score: score,
-            total: total,
+            score: args,
+            total: args,
           ),
         );
       case '/alltechnologies':

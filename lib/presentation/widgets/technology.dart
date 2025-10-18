@@ -141,7 +141,15 @@ class TechnologyCard extends ConsumerWidget {
           if (value) {
             gameViewModel.reset();
             Navigator.pushNamed(context, "/game");
-          } else {}
+          } else {
+            // Afficher un message d'erreur à l'utilisateur
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Erreur lors du chargement des questions. Vérifiez votre connexion internet et votre clé API Gemini.'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         });
       },
       child: Container(

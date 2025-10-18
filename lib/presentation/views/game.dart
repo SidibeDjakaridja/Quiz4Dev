@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -103,52 +102,54 @@ class GameView extends ConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            left: 40,
-            top: 40,
+            top: 50,
             bottom: 40,
           ),
-          child: Card(
-            elevation: 8,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              height: size.height * 0.07,
-              width: size.width,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Card(
+              elevation: 8,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "${homeViewModel.technologyChoosen}",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
+              child: Container(
+                height: size.height * 0.07,
+                width: size.width,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${homeViewModel.technologyChoosen}",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "${homeViewModel.level}",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                    Text(
+                      "${homeViewModel.level}",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
         Positioned(
-          top: 30,
-          left: 0,
+          top: 40,
+          left: 10,
           child: Card(
             elevation: 8,
             shape: RoundedRectangleBorder(
@@ -176,8 +177,8 @@ class GameView extends ConsumerWidget {
           ),
         ),
         Positioned(
-          top: 45,
-          right: 0,
+          top: 65,
+          right: 10,
           child: GestureDetector(
             onTap: () {
               quitGame(context, size);

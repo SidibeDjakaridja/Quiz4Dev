@@ -2,13 +2,13 @@ import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/api/gemini_api.dart';
+import '../../core/api/chatgpt_api.dart';
 import '../../domain/entities/question.dart';
 import '../../domain/repositories/question.dart';
 import '../datasources/question_remote_data_source.dart';
 
 final questionRepositoryProvider = Provider<QuestionRepositoryImpl>((ref) {
-  final client = GeminiApi(type: "gemini-1.5-flash");
+  final client = ChatGPTApi();
   final dataSource = QuestionRemoteDataSource(client: client);
   return QuestionRepositoryImpl(remoteDataSource: dataSource);
 });

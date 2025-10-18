@@ -35,12 +35,22 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<bool> fetchQuestions() async {
+    print('🟢 HomeViewModel: Début du chargement des questions');
+    print('🟢 Technologie choisie: $technologyChoosen');
+    print('🟢 Niveau: $level');
+
     try {
       questions = await getQuestionsUseCase.execute(technologyChoosen, level);
+      print(
+          '🟢 HomeViewModel: Questions chargées avec succès (${questions.length} questions)');
       notifyListeners();
       return true;
     } catch (e) {
-      //
+      print('🔴 HomeViewModel: Erreur lors du chargement des questions: $e');
+      print('🔴 Type d\'erreur: ${e.runtimeType}');
+      // Réinitialiser les questions en cas d'erreur
+      questions = [];
+      notifyListeners();
     } finally {
       isLoading = false;
       notifyListeners();

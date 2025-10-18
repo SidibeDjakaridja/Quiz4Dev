@@ -5,8 +5,8 @@ import '../../themes/app_theme.dart';
 import '../widgets/simple_button.dart';
 
 class Success extends StatefulWidget {
-  final Map<String, int> score;
-  final Map<String, int> total;
+  final Map<String, dynamic> score;
+  final Map<String, dynamic> total;
 
   const Success({
     super.key,
@@ -20,29 +20,32 @@ class Success extends StatefulWidget {
 
 class _SuccessState extends State<Success> {
   showScore() {
-    if (widget.score["score"]! < 5) {
+    final scoreValue = widget.score["score"] as int;
+    if (scoreValue < 5) {
       return const Text(
-        "C’est un bon début ! Avec un peu plus de pratique, vous allez sûrement améliorer votre score.",
+        "C'est un bon début ! Avec un peu plus de pratique, vous allez sûrement améliorer votre score.",
         textAlign: TextAlign.center,
       );
-    } else if (widget.score["score"]! > 5 && widget.score["score"]! < 10) {
+    } else if (scoreValue > 5 && scoreValue < 10) {
       return const Text(
         "Bravo pour votre effort ! Avec quelques révisions supplémentaires, vous vous rapprocherez de votre objectif.",
         textAlign: TextAlign.center,
       );
-    } else if (widget.score["score"]! == 10 || widget.score["score"]! < 15) {
+    } else if (scoreValue == 10 || scoreValue < 15) {
       return const Text(
         "Excellent score ! Vous êtes en train de maîtriser le sujet. Continuez de vous exercer pour vous perfectionner encore plus.",
         textAlign: TextAlign.center,
       );
-    } else if (widget.score["score"]! > 15) {
-      return (
-        const Text(
-          "Félicitations ! Vous avez fait un travail remarquable. Avec ce niveau de compétence, vous êtes prêt(e) pour de nouveaux défis.",
-          textAlign: TextAlign.center,
-        ),
+    } else if (scoreValue > 15) {
+      return const Text(
+        "Félicitations ! Vous avez fait un travail remarquable. Avec ce niveau de compétence, vous êtes prêt(e) pour de nouveaux défis.",
+        textAlign: TextAlign.center,
       );
     }
+    return const Text(
+      "Merci d'avoir participé au quiz !",
+      textAlign: TextAlign.center,
+    );
   }
 
   @override
